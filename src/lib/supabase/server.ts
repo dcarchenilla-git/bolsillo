@@ -21,7 +21,7 @@ export async function createClient() {
             );
           } catch {
             // En Server Components no se pueden escribir cookies;
-            // el futuro proxy refrescará la sesión.
+            // src/proxy.ts (updateSession) refresca la sesión.
           }
         },
       },
