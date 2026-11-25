@@ -28,6 +28,7 @@ Versiones tomadas de [package.json](package.json):
 
 Alcance de la versión mínima según [CLAUDE.md](CLAUDE.md), y lo que hay implementado en `src/`:
 
+- **Portada:** explica qué es Bolsillo y lleva al login ([src/app/page.tsx](src/app/page.tsx)).
 - **Cuentas:** registro, acceso y cierre de sesión con correo y contraseña
   ([src/app/login/](src/app/login/), [src/app/panel/actions.ts](src/app/panel/actions.ts)).
 - **/panel protegido:** sin sesión, el proxy manda a `/login`; con sesión, `/login` manda a `/panel`
@@ -83,7 +84,8 @@ Las reglas comunes de los tres están en [CLAUDE.md](CLAUDE.md), y el ciclo y lo
 | T-003 | Autenticación con correo y contraseña | 3 | Aprobado (las 3 rondas) | `e6827ca` | [ronda 1](docs/evidencias/T-003-ronda-1.md) · [ronda 2](docs/evidencias/T-003-ronda-2.md) · [ronda 3](docs/evidencias/T-003-ronda-3.md) |
 | T-004 | Movimientos de ingresos y gastos en /panel | 1 | Aprobado | `147819c` | [ronda 1](docs/evidencias/T-004-ronda-1.md) |
 | T-005 | Resumen de ingresos, gastos y saldo en /panel | 1 | Aprobado | `1d659ed` | [ronda 1](docs/evidencias/T-005-ronda-1.md) |
-| T-006 | Reescribir README.md | 3 | Ronda 1: Rechazado (defecto de formato) · Ronda 2: Aprobado · Ronda 3: ajustes de contenido pedidos por el usuario tras leer el README | este commit | [ronda 1](docs/evidencias/T-006-ronda-1.md) · [ronda 2](docs/evidencias/T-006-ronda-2.md) · [ronda 3](docs/evidencias/T-006-ronda-3.md) |
+| T-006 | Reescribir README.md | 3 | Ronda 1: Rechazado (defecto de formato) · Ronda 2: Aprobado · Ronda 3: ajustes de contenido pedidos por el usuario tras leer el README | `28cc584` | [ronda 1](docs/evidencias/T-006-ronda-1.md) · [ronda 2](docs/evidencias/T-006-ronda-2.md) · [ronda 3](docs/evidencias/T-006-ronda-3.md) |
+| T-007 | Mejora visual de la portada y del login | 1 | Aprobado | este commit | [ronda 1](docs/evidencias/T-007-ronda-1.md) |
 
 En T-001 a T-005 Testing no rechazó ninguna ronda. El defecto de `Date.now()` lo encontró el usuario al probar la app,
 y el único rechazo de Testing fue el de la ronda 1 de T-006, por un defecto de formato.

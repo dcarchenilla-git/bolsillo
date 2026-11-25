@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { authenticate, type LoginState } from "./actions";
 
 const inputClass =
-  "rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base text-zinc-950 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50";
+  "rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50 dark:focus-visible:outline-zinc-50";
 const labelClass =
   "flex flex-col gap-1 text-left text-sm font-medium text-zinc-800 dark:text-zinc-200";
 
@@ -54,7 +54,7 @@ export function LoginForm() {
           name="intent"
           value="entrar"
           disabled={pending}
-          className="flex-1 rounded-lg bg-zinc-950 px-4 py-2 font-medium text-white disabled:opacity-60 dark:bg-zinc-50 dark:text-zinc-950"
+          className="flex-1 rounded-lg bg-zinc-950 px-4 py-2 font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950 disabled:opacity-60 dark:bg-zinc-50 dark:text-zinc-950 dark:focus-visible:outline-zinc-50"
         >
           Entrar
         </button>
@@ -63,7 +63,7 @@ export function LoginForm() {
           name="intent"
           value="crear"
           disabled={pending}
-          className="flex-1 rounded-lg border border-zinc-300 px-4 py-2 font-medium text-zinc-950 disabled:opacity-60 dark:border-zinc-700 dark:text-zinc-50"
+          className="flex-1 rounded-lg border border-zinc-300 px-4 py-2 font-medium text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950 disabled:opacity-60 dark:border-zinc-700 dark:text-zinc-50 dark:focus-visible:outline-zinc-50"
         >
           Crear cuenta
         </button>
