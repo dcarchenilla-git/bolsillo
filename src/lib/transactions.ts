@@ -121,6 +121,56 @@ export function formatAmount(type: TransactionType, amount: number): string {
   return `${type === "ingreso" ? "+" : "−"}${euros.format(amount)}`;
 }
 
+// Importe de la BD (numeric(12,2), positivo): solo cifras y hasta 2 decimales.
+// Sin signo ni exponente: "-3", "1e5" o "1.234" no encajan.
+const CENTS_REGEX = /^(\d+)(?:\.(\d{1,2}))?$/;
+
+// Convierte un amount (number o string: supabase-js puede devolver cualquiera
+// de los dos) a céntimos enteros a partir de su texto, sin multiplicar floats.
+// Devuelve null si el importe no es válido.
+export function amountToCents(value: unknown): number | null {
+  if (typeof value !== "number" && typeof value !== "string") return null;
+  const match = CENTS_REGEX.exec(String(value));
+  if (!match) return null;
+  const cents =
+    Number(match[1]) * 100 + Number((match[2] ?? "").padEnd(2, "0"));
+  return Number.isSafeInteger(cents) ? cents : null;
+}
+
+export type Totals = {
+  incomeCents: number;
+  expenseCents: number;
+};
+
+// Suma un bloque de filas (type, amount) a los totales, en céntimos enteros.
+// Devuelve null si alguna fila no es válida o si un total deja de ser exacto.
+export function addToTotals(totals: Totals, rows: unknown[]): Totals | null {
+  let { incomeCents, expenseCents } = totals;
+  for (const row of rows) {
+    if (!isRecord(row) || !isTransactionType(row.type)) return null;
+    const cents = amountToCents(row.amount);
+    if (cents === null) return null;
+    if (row.type === "ingreso") {
+      incomeCents += cents;
+    } else {
+      expenseCents += cents;
+    }
+    if (
+      !Number.isSafeInteger(incomeCents) ||
+      !Number.isSafeInteger(expenseCents)
+    ) {
+      return null;
+    }
+  }
+  return { incomeCents, expenseCents };
+}
+
+// Céntimos enteros → euros es-ES. La división por 100 se hace solo aquí,
+// al formatear (Intl redondea a 2 decimales).
+export function formatCents(cents: number): string {
+  return euros.format(cents / 100);
+}
+
 // numeric puede llegar como string o como number desde supabase-js.
 function toNumber(value: unknown): number | null {
   if (typeof value === "number") return Number.isFinite(value) ? value : null;

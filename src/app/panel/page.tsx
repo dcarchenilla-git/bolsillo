@@ -5,6 +5,7 @@ import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { toCategories, todayInMadrid } from "@/lib/transactions";
 import { signOut } from "./actions";
+import { SummaryCards } from "./summary-cards";
 import { TransactionForm } from "./transaction-form";
 import { TransactionList } from "./transaction-list";
 
@@ -27,6 +28,21 @@ export default function PanelPage() {
       </Suspense>
 
       <div className="mt-10 flex w-full max-w-xl flex-col gap-10 text-left">
+        <section className="flex flex-col gap-4">
+          <h2 className="text-xl font-semibold text-zinc-950 dark:text-zinc-50">
+            Resumen
+          </h2>
+          <Suspense
+            fallback={
+              <p className="text-zinc-600 dark:text-zinc-400">
+                Calculando totales…
+              </p>
+            }
+          >
+            <SummaryCards />
+          </Suspense>
+        </section>
+
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold text-zinc-950 dark:text-zinc-50">
             Nuevo movimiento
